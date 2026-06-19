@@ -436,8 +436,8 @@
             <span>Possui experiências?</span>
             <select name="possui_experiencias" required>
               <option value="">Selecione</option>
-              <option value="Sim">Sim</option>
-              <option value="Nao">Não</option>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
             </select>
           </label>
 
@@ -460,8 +460,8 @@
             <span>Possui CNH?</span>
             <select name="possui_cnh">
               <option value="">Selecione</option>
-              <option value="Sim">Sim</option>
-              <option value="Nao">Não</option>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
             </select>
           </label>
 
@@ -609,7 +609,7 @@
       }
 
       function updateExperienceFields() {
-        const hasExperience = experienceSelect.value === "Sim";
+        const hasExperience = experienceSelect.value === "true";
 
         experienceGroups.forEach((group) => {
           group.hidden = !hasExperience;
@@ -627,7 +627,7 @@
       function prepareExperienceFieldsForSubmit() {
         updateExperienceFields();
 
-        if (experienceSelect.value === "Nao") {
+        if (experienceSelect.value === "false") {
           experienceFields.forEach((field) => {
             field.required = false;
             field.value = "";
