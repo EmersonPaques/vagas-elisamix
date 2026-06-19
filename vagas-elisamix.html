@@ -134,6 +134,13 @@
         font-weight: 700;
       }
 
+      .required-note {
+        color: var(--accent-strong);
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 700;
+      }
+
       input,
       select,
       textarea {
@@ -335,17 +342,27 @@
           <input name="origem_formulario" type="hidden" value="vagas-elisamix">
 
           <label class="field field-full">
-            <span>Nome completo</span>
+            <span>Nome completo <em class="required-note">(Este campo é obrigatório)</em></span>
             <input name="nome" required autocomplete="name" placeholder="Nome completo">
           </label>
 
           <label class="field">
-            <span>Data de nascimento</span>
+            <span>Data de nascimento <em class="required-note">(Este campo é obrigatório)</em></span>
             <input name="data_nascimento" type="date" required>
           </label>
 
           <label class="field">
-            <span>Telefone</span>
+            <span>Gênero <em class="required-note">(Este campo é obrigatório)</em></span>
+            <select name="genero" required>
+              <option value="">Selecione</option>
+              <option value="masculino">Masculino</option>
+              <option value="feminino">Feminino</option>
+              <option value="não informado">Prefiro não informar</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Telefone <em class="required-note">(Este campo é obrigatório)</em></span>
             <input name="telefone" inputmode="tel" autocomplete="tel" placeholder="(43) 99999-9999" maxlength="15" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}" title="Use o formato (DDD) 99999-9999" required>
           </label>
 
@@ -360,7 +377,7 @@
           </label>
 
           <label class="field field-full">
-            <span>Foto</span>
+            <span>Foto <em class="required-note">(Este campo é obrigatório)</em></span>
             <input name="foto" type="file" accept="image/*" required>
           </label>
 
@@ -385,7 +402,7 @@
           </label>
 
           <label class="field field-full">
-            <span>Endereço</span>
+            <span>Endereço <em class="required-note">(Este campo é obrigatório)</em></span>
             <input name="endereco" autocomplete="street-address" placeholder="Rua das Flores" required>
           </label>
 
@@ -405,7 +422,7 @@
           </label>
 
           <div class="field field-full">
-            <span id="vaga-interesse-label">Vaga de interesse</span>
+            <span id="vaga-interesse-label">Vaga de interesse <em class="required-note">(Este campo é obrigatório)</em></span>
             <input name="vaga_interesse" type="hidden">
             <div class="checkbox-group" role="group" aria-labelledby="vaga-interesse-label">
               <label class="checkbox-option">
@@ -433,7 +450,7 @@
           </label>
 
           <label class="field">
-            <span>Possui experiências?</span>
+            <span>Possui experiências? <em class="required-note">(Este campo é obrigatório)</em></span>
             <select id="possui-experiencias" required>
               <option value="">Selecione</option>
               <option value="true">Sim</option>
@@ -442,7 +459,7 @@
           </label>
 
           <label class="field field-full experience-field is-hidden" hidden>
-            <span>Experiência 1</span>
+            <span>Experiência 1 <em class="required-note">(Este campo é obrigatório)</em></span>
             <textarea name="experiencia1" placeholder="Empresa, período e atividades"></textarea>
           </label>
 
