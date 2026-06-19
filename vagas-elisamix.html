@@ -244,6 +244,12 @@
         transform: translateY(-1px);
       }
 
+      .checkbox-option:focus-within {
+        border-color: var(--border-focus);
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
+        outline: none;
+      }
+
       .checkbox-option input {
         flex: 0 0 auto;
         width: 18px;
@@ -285,6 +291,12 @@
       .file-upload-card:hover {
         border-color: var(--accent);
         background: rgba(212, 175, 55, 0.02);
+      }
+
+      .file-upload-card.is-dragover {
+        border-color: var(--accent-strong);
+        background: rgba(212, 175, 55, 0.08);
+        box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
       }
 
       .file-upload-icon {
@@ -788,22 +800,83 @@
         }
       });
 
-      // Photo upload selection preview
+      // Photo upload selection preview with drag and drop + validation
       const photoInput = document.getElementById("candidate-photo");
       const photoPreview = document.getElementById("file-name-preview");
       const photoText = document.querySelector(".file-upload-text");
+      const fileUploadCard = document.querySelector(".file-upload-card");
+
+      function handleFile(file) {
+        if (!file) {
+          photoPreview.style.display = "none";
+          photoText.textContent = "Selecione ou arraste sua foto aqui";
+          return false;
+        }
+
+        // Validate type
+        if (!file.type.startsWith("image/")) {
+          alert("Formato de arquivo não permitido. Por favor, envie uma imagem (JPG, PNG ou GIF).");
+          photoInput.value = "";
+          photoPreview.style.display = "none";
+          photoText.textContent = "Selecione ou arraste sua foto aqui";
+          return false;
+        }
+
+        // Validate size: max 5MB
+        const maxSizeBytes = 5 * 1024 * 1024;
+        if (file.size > maxSizeBytes) {
+          alert("A imagem é muito grande. O tamanho máximo permitido é de 5MB.");
+          photoInput.value = "";
+          photoPreview.style.display = "none";
+          photoText.textContent = "Selecione ou arraste sua foto aqui";
+          return false;
+        }
+
+        photoPreview.textContent = `Arquivo: ${file.name}`;
+        photoPreview.style.display = "inline-block";
+        photoText.textContent = "Foto carregada!";
+        return true;
+      }
+
       if (photoInput && photoPreview && photoText) {
         photoInput.addEventListener("change", (e) => {
           const file = e.target.files[0];
-          if (file) {
-            photoPreview.textContent = `Arquivo: ${file.name}`;
-            photoPreview.style.display = "inline-block";
-            photoText.textContent = "Foto carregada!";
-          } else {
-            photoPreview.style.display = "none";
-            photoText.textContent = "Selecione ou arraste sua foto aqui";
-          }
+          handleFile(file);
         });
+      }
+
+      if (fileUploadCard && photoInput) {
+        // Prevent default drag behaviors
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+          fileUploadCard.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }, false);
+        });
+
+        // Highlight drop zone on drag over
+        ["dragenter", "dragover"].forEach((eventName) => {
+          fileUploadCard.addEventListener(eventName, () => {
+            fileUploadCard.classList.add("is-dragover");
+          }, false);
+        });
+
+        ["dragleave", "dragend", "drop"].forEach((eventName) => {
+          fileUploadCard.addEventListener(eventName, () => {
+            fileUploadCard.classList.remove("is-dragover");
+          }, false);
+        });
+
+        // Handle dropped files
+        fileUploadCard.addEventListener("drop", (e) => {
+          const dt = e.dataTransfer;
+          const files = dt.files;
+          if (files && files.length > 0) {
+            photoInput.files = files;
+            // Manually trigger change event
+            photoInput.dispatchEvent(new Event("change"));
+          }
+        }, false);
       }
 
       form.addEventListener("submit", (event) => {
