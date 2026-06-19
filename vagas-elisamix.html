@@ -151,13 +151,36 @@
         box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
       }
 
-      .multi-select {
-        min-height: 132px;
-        padding: 8px;
+      .checkbox-group {
+        display: grid;
+        gap: 8px;
       }
 
-      .multi-select option {
-        padding: 7px 8px;
+      .checkbox-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 42px;
+        padding: 0 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background: var(--bg-input);
+        cursor: pointer;
+      }
+
+      .checkbox-option input {
+        flex: 0 0 auto;
+        width: 16px;
+        height: 16px;
+        min-height: 16px;
+        padding: 0;
+        accent-color: var(--accent);
+      }
+
+      .checkbox-option span {
+        color: var(--text-main);
+        font-size: 14px;
+        font-weight: 600;
       }
 
       .public-form-actions {
@@ -361,16 +384,28 @@
             <input name="formacao" placeholder="Ensino Superior - Administracao">
           </label>
 
-          <label class="field field-full">
-            <span>Vaga de interesse</span>
+          <div class="field field-full">
+            <span id="vaga-interesse-label">Vaga de interesse</span>
             <input name="vaga_interesse" type="hidden">
-            <select id="vaga-interesse-select" class="multi-select" multiple size="4" required>
-              <option value="Atendente">Atendente</option>
-              <option value="Op. de caixa">Op. de caixa</option>
-              <option value="Estoquista">Estoquista</option>
-              <option value="Auxiliar de loja (jovem aprendiz)">Auxiliar de loja (jovem aprendiz)</option>
-            </select>
-          </label>
+            <div class="checkbox-group" role="group" aria-labelledby="vaga-interesse-label">
+              <label class="checkbox-option">
+                <input type="checkbox" value="Atendente" data-role-option>
+                <span>Atendente</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" value="Op. de caixa" data-role-option>
+                <span>Op. de caixa</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" value="Estoquista" data-role-option>
+                <span>Estoquista</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" value="Auxiliar de loja (jovem aprendiz)" data-role-option>
+                <span>Auxiliar de loja (jovem aprendiz)</span>
+              </label>
+            </div>
+          </div>
 
           <label class="field">
             <span>Disponibilidade</span>
@@ -452,8 +487,8 @@
       const submitFrame = document.querySelector('iframe[name="webhook-submit-frame"]');
       const successModal = document.getElementById("candidate-success-modal");
       const cepField = form.elements.cep;
-      const roleSelect = document.getElementById("vaga-interesse-select");
       const roleField = form.elements.vaga_interesse;
+      const roleOptions = Array.from(document.querySelectorAll("[data-role-option]"));
       const experienceSelect = form.elements.possui_experiencias;
       const experienceGroups = Array.from(document.querySelectorAll(".experience-field"));
       const experienceFields = [form.elements.experiencia1, form.elements.experiencia2, form.elements.experiencia3].filter(Boolean);
@@ -477,7 +512,7 @@
         });
       });
 
-      roleSelect.addEventListener("change", syncSelectedRoles);
+      roleOptions.forEach((option) => option.addEventListener("change", syncSelectedRoles));
       experienceSelect.addEventListener("change", updateExperienceFields);
 
       if (cepField) {
@@ -540,9 +575,17 @@
       }
 
       function syncSelectedRoles() {
-        roleField.value = Array.from(roleSelect.selectedOptions)
-          .map((option) => option.value)
-          .join(", ");
+        const selectedRoles = roleOptions
+          .filter((option) => option.checked)
+          .map((option) => option.value);
+
+        roleField.value = selectedRoles.join(", ");
+        updateRoleValidity(selectedRoles.length > 0);
+      }
+
+      function updateRoleValidity(hasSelectedRole) {
+        if (!roleOptions.length) return;
+        roleOptions[0].setCustomValidity(hasSelectedRole ? "" : "Selecione pelo menos uma vaga de interesse.");
       }
 
       function updateExperienceFields() {
