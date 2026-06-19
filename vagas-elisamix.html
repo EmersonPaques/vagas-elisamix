@@ -6,21 +6,24 @@
     <meta name="theme-color" content="#0b0d12">
     <title>Vagas Elisa Mix</title>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
       :root {
-        --bg-page: #090b10;
-        --bg-panel: #111722;
-        --bg-input: #0c1119;
-        --border: rgba(255, 255, 255, 0.12);
-        --border-soft: rgba(255, 255, 255, 0.08);
-        --text-main: #f7f3e8;
-        --text-muted: #b4bdca;
+        --bg-page: #06080d;
+        --bg-panel: rgba(15, 22, 36, 0.85);
+        --bg-input: rgba(8, 12, 21, 0.8);
+        --border: rgba(255, 255, 255, 0.08);
+        --border-hover: rgba(212, 175, 55, 0.35);
+        --border-focus: rgba(212, 175, 55, 0.8);
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
         --accent: #d4af37;
-        --accent-strong: #f2cf67;
-        --danger: #ef4444;
-        --shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
-        --radius: 16px;
-        --radius-sm: 10px;
-        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        --accent-strong: #fbbf24;
+        --danger: #f87171;
+        --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        --radius: 20px;
+        --radius-sm: 12px;
+        font-family: 'Plus Jakarta Sans', "Segoe UI", Arial, sans-serif;
       }
 
       * {
@@ -31,67 +34,91 @@
         min-height: 100vh;
         margin: 0;
         color: var(--text-main);
-        background:
-          linear-gradient(135deg, rgba(212, 175, 55, 0.07), transparent 38%),
-          linear-gradient(135deg, #090b10 0%, #0c1119 52%, #0d131c 100%);
-        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        background-color: var(--bg-page);
+        background-image: 
+          radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.08) 0px, transparent 50%),
+          radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+          radial-gradient(at 50% 100%, rgba(17, 24, 39, 1) 0px, transparent 80%);
+        background-attachment: fixed;
+        font-family: 'Plus Jakarta Sans', "Segoe UI", Arial, sans-serif;
         font-size: 14px;
-        letter-spacing: 0;
+        line-height: 1.5;
+        letter-spacing: -0.01em;
       }
 
       button,
       input,
       select,
       textarea {
-        font: inherit;
-      }
-
-      button {
-        border: 0;
+        font-family: inherit;
+        font-size: inherit;
       }
 
       .public-form-shell {
-        width: min(100%, 1080px);
+        width: min(100%, 800px);
         margin: 0 auto;
-        padding: 36px 18px;
+        padding: 48px 16px;
+        animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      @keyframes formFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .public-form-panel {
         overflow: hidden;
         border: 1px solid var(--border);
         border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(17, 23, 34, 0.97), rgba(13, 19, 28, 0.97));
-        box-shadow: var(--shadow);
+        background: var(--bg-panel);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
       }
 
       .public-form-head {
         display: flex;
         align-items: center;
-        gap: 18px;
-        padding: 22px;
-        border-bottom: 1px solid var(--border-soft);
+        gap: 24px;
+        padding: 32px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
       }
 
       .brand {
         display: inline-grid;
-        min-width: 72px;
-        min-height: 72px;
+        min-width: 80px;
+        min-height: 80px;
         place-items: center;
-        border: 1px solid rgba(212, 175, 55, 0.45);
-        border-radius: 12px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 16px;
         color: var(--accent-strong);
-        background: rgba(212, 175, 55, 0.08);
+        background: rgba(212, 175, 55, 0.06);
         font-size: 18px;
-        font-weight: 900;
+        font-weight: 800;
         text-align: center;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .brand:hover {
+        transform: scale(1.05);
       }
 
       .brand-logo {
         width: 84px;
         height: 84px;
-        padding: 5px;
+        padding: 8px;
         background: #ffffff;
         overflow: hidden;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
       .brand-logo img {
@@ -102,25 +129,30 @@
 
       h1 {
         margin: 0;
-        font-size: 24px;
-        line-height: 1.15;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        background: linear-gradient(120deg, #ffffff 30%, #f3f4f6 60%, var(--accent-strong) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       .public-form-head p {
-        margin: 6px 0 0;
+        margin: 8px 0 0;
         color: var(--text-muted);
+        font-size: 14px;
       }
 
       .form-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-        padding: 22px;
+        gap: 20px;
+        padding: 32px;
       }
 
       .field {
         display: grid;
-        gap: 6px;
+        gap: 8px;
         min-width: 0;
       }
 
@@ -129,79 +161,169 @@
       }
 
       .field span {
-        color: var(--text-muted);
-        font-size: 12px;
-        font-weight: 700;
+        color: var(--text-main);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
       }
 
       .required-note {
         color: var(--accent-strong);
         font-size: 11px;
         font-style: normal;
-        font-weight: 700;
+        margin-left: 4px;
       }
 
       input,
       select,
       textarea {
         width: 100%;
-        min-height: 40px;
-        padding: 0 12px;
+        min-height: 46px;
+        padding: 0 16px;
         color: var(--text-main);
         border: 1px solid var(--border);
         border-radius: var(--radius-sm);
         outline: none;
         background: var(--bg-input);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       textarea {
-        min-height: 88px;
-        padding: 10px 12px;
+        min-height: 110px;
+        padding: 12px 16px;
         resize: vertical;
       }
 
       input::placeholder,
       textarea::placeholder {
-        color: #6f7a8d;
+        color: #525b6c;
       }
 
       input:focus,
       select:focus,
       textarea:focus {
-        border-color: rgba(212, 175, 55, 0.75);
-        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+        border-color: var(--border-focus);
+        background: rgba(12, 17, 25, 0.95);
+        box-shadow: 
+          0 0 0 4px rgba(212, 175, 55, 0.12),
+          inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        transform: translateY(-1px);
       }
 
       .checkbox-group {
         display: grid;
-        gap: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 4px;
+      }
+
+      @media (max-width: 600px) {
+        .checkbox-group {
+          grid-template-columns: 1fr;
+        }
       }
 
       .checkbox-option {
         display: flex;
         align-items: center;
-        gap: 10px;
-        min-height: 42px;
-        padding: 0 12px;
+        gap: 12px;
+        min-height: 48px;
+        padding: 0 16px;
         border: 1px solid var(--border);
         border-radius: var(--radius-sm);
         background: var(--bg-input);
         cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        user-select: none;
+      }
+
+      .checkbox-option:hover {
+        border-color: var(--border-hover);
+        background: rgba(212, 175, 55, 0.04);
+        transform: translateY(-1px);
       }
 
       .checkbox-option input {
         flex: 0 0 auto;
-        width: 16px;
-        height: 16px;
-        min-height: 16px;
-        padding: 0;
+        width: 18px;
+        height: 18px;
+        min-height: 18px;
+        margin: 0;
         accent-color: var(--accent);
+        cursor: pointer;
       }
 
       .checkbox-option span {
         color: var(--text-main);
         font-size: 14px;
+        font-weight: 550;
+      }
+
+      .checkbox-option.is-checked {
+        border-color: var(--accent);
+        background: rgba(212, 175, 55, 0.08);
+        box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
+      }
+
+      /* Custom File Upload Area */
+      .file-upload-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 140px;
+        padding: 24px;
+        border: 2px dashed rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-sm);
+        background: var(--bg-input);
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .file-upload-card:hover {
+        border-color: var(--accent);
+        background: rgba(212, 175, 55, 0.02);
+      }
+
+      .file-upload-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+        transition: transform 0.3s ease;
+      }
+
+      .file-upload-card:hover .file-upload-icon {
+        transform: scale(1.15) translateY(-2px);
+      }
+
+      .file-upload-text {
         font-weight: 600;
+        color: var(--text-main);
+        font-size: 14px;
+      }
+
+      .file-upload-subtext {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      .file-selected-name {
+        margin-top: 8px;
+        font-size: 13px;
+        color: var(--accent-strong);
+        font-weight: 600;
+        background: rgba(212, 175, 55, 0.1);
+        padding: 4px 12px;
+        border-radius: 99px;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        animation: pulseName 2s infinite ease-in-out;
+      }
+
+      @keyframes pulseName {
+        0%, 100% { opacity: 0.9; }
+        50% { opacity: 0.7; }
       }
 
       .is-hidden {
@@ -212,26 +334,58 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
-        gap: 10px;
-        padding-top: 4px;
+        gap: 12px;
+        padding-top: 12px;
       }
 
       .btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 42px;
-        padding: 0 18px;
+        min-height: 48px;
+        padding: 0 32px;
         border-radius: var(--radius-sm);
-        color: #10131a;
+        color: #0b0d12;
         background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-        font-weight: 800;
+        font-weight: 750;
+        letter-spacing: 0.02em;
         cursor: pointer;
+        box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+        transition: all 0.6s ease;
+      }
+
+      .btn:hover::after {
+        left: 100%;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(212, 175, 55, 0.35);
+        filter: brightness(1.05);
+      }
+
+      .btn:active {
+        transform: translateY(0);
       }
 
       .btn:disabled {
         cursor: wait;
-        opacity: 0.72;
+        opacity: 0.6;
+        transform: none;
+        box-shadow: none;
       }
 
       .submit-frame {
@@ -246,11 +400,18 @@
       .public-modal-backdrop {
         position: fixed;
         inset: 0;
-        z-index: 20;
+        z-index: 9999;
         display: grid;
         place-items: center;
         padding: 18px;
-        background: rgba(5, 7, 11, 0.72);
+        background: rgba(5, 7, 11, 0.85);
+        backdrop-filter: blur(8px);
+        animation: fadeIn 0.4s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
 
       .public-modal-backdrop[hidden] {
@@ -259,59 +420,102 @@
 
       .public-modal-shell {
         position: relative;
-        width: min(100%, 440px);
-        padding: 28px;
-        border: 1px solid var(--border);
+        width: min(100%, 460px);
+        padding: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: var(--radius);
-        background: var(--bg-panel);
-        box-shadow: var(--shadow);
+        background: linear-gradient(180deg, #111722 0%, #0d131c 100%);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
         text-align: center;
+        transform: scale(0.9);
+        opacity: 0;
+        animation: scaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+
+      @keyframes scaleUp {
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
 
       .public-modal-close {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 36px;
-        height: 36px;
-        color: var(--text-main);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        border: 0;
+        color: var(--text-muted);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
+        font-size: 16px;
+        transition: all 0.2s ease;
+      }
+
+      .public-modal-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-main);
+        transform: rotate(90deg);
       }
 
       .public-modal-icon {
-        margin-bottom: 10px;
-        font-size: 36px;
+        margin: 0 auto 20px;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #10b981;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: bold;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
       }
 
       .public-modal-shell h2 {
-        margin: 0 0 8px;
+        margin: 0 0 12px;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        color: #ffffff;
       }
 
       .public-modal-shell p {
-        margin: 0 0 18px;
+        margin: 0 0 24px;
         color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.6;
       }
 
-      @media (max-width: 720px) {
+      .public-modal-shell .btn {
+        width: 100%;
+        box-shadow: none;
+      }
+
+      @media (max-width: 768px) {
         .public-form-shell {
-          padding: 18px 12px;
+          padding: 24px 12px;
         }
 
         .public-form-head {
-          align-items: flex-start;
+          align-items: center;
           flex-direction: column;
-        }
-
-        .brand {
-          min-width: 64px;
-          min-height: 64px;
+          text-align: center;
+          padding: 24px;
+          gap: 16px;
         }
 
         .form-grid {
           grid-template-columns: 1fr;
-          padding: 18px;
+          padding: 24px;
+          gap: 16px;
         }
       }
     </style>
@@ -376,10 +580,16 @@
             <input name="email" type="email" autocomplete="email" placeholder="seuemail@dominio.com">
           </label>
 
-          <label class="field field-full">
+          <div class="field field-full">
             <span>Foto <em class="required-note">(Este campo é obrigatório)</em></span>
-            <input name="foto" type="file" accept="image/*" required>
-          </label>
+            <label class="file-upload-card" for="candidate-photo">
+              <span class="file-upload-icon">📸</span>
+              <span class="file-upload-text">Selecione ou arraste sua foto aqui</span>
+              <span class="file-upload-subtext">Formatos permitidos: JPG, PNG, GIF. Máx 5MB</span>
+              <input id="candidate-photo" name="foto" type="file" accept="image/*" required style="display: none;">
+              <span class="file-selected-name" id="file-name-preview" style="display: none;"></span>
+            </label>
+          </div>
 
           <label class="field">
             <span>CEP</span>
@@ -566,6 +776,35 @@
 
       syncSelectedRoles();
       updateExperienceFields();
+
+      // Checkbox visual styling
+      roleOptions.forEach((option) => {
+        const optionLabel = option.closest(".checkbox-option");
+        if (optionLabel) {
+          optionLabel.classList.toggle("is-checked", option.checked);
+          option.addEventListener("change", () => {
+            optionLabel.classList.toggle("is-checked", option.checked);
+          });
+        }
+      });
+
+      // Photo upload selection preview
+      const photoInput = document.getElementById("candidate-photo");
+      const photoPreview = document.getElementById("file-name-preview");
+      const photoText = document.querySelector(".file-upload-text");
+      if (photoInput && photoPreview && photoText) {
+        photoInput.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            photoPreview.textContent = `Arquivo: ${file.name}`;
+            photoPreview.style.display = "inline-block";
+            photoText.textContent = "Foto carregada!";
+          } else {
+            photoPreview.style.display = "none";
+            photoText.textContent = "Selecione ou arraste sua foto aqui";
+          }
+        });
+      }
 
       form.addEventListener("submit", (event) => {
         syncSelectedRoles();
