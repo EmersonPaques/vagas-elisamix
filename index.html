@@ -3,13 +3,519 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="0; url=./vagas-elisamix.html">
+    <meta name="theme-color" content="#0b0d12">
     <title>Vagas Elisa Mix</title>
+    <link rel="stylesheet" href="./style.css">
   </head>
   <body>
+    <main class="public-form-shell">
+      <section class="public-form-panel">
+        <div class="public-form-head">
+          <span class="brand brand-logo">
+            <img src="./elisamix-logo.png" alt="Elisa Mix">
+          </span>
+          <div>
+            <h1>Cadastro de currículo</h1>
+            <p>Preencha seus dados para participar dos processos seletivos da Elisa Mix.</p>
+          </div>
+        </div>
+
+        <form
+          id="candidate-form"
+          class="form-grid"
+          action="https://n8n.geniuslead.com.br/webhook/api/sul/candidatos"
+          method="post"
+          enctype="multipart/form-data"
+          target="webhook-submit-frame"
+        >
+          <input name="status" type="hidden" value="Novo">
+          <input name="empresa" type="hidden" value="Elisa Mix">
+          <input name="origem_formulario" type="hidden" value="vagas-elisamix">
+
+          <label class="field field-full">
+            <span>Nome completo <em class="required-note">(Este campo é obrigatório)</em></span>
+            <input name="nome" required autocomplete="name" placeholder="Nome completo">
+          </label>
+
+          <label class="field">
+            <span>Data de nascimento <em class="required-note">(Este campo é obrigatório)</em></span>
+            <input name="data_nascimento" type="date" required>
+          </label>
+
+          <label class="field">
+            <span>Gênero <em class="required-note">(Este campo é obrigatório)</em></span>
+            <select name="genero" required>
+              <option value="">Selecione</option>
+              <option value="masculino">Masculino</option>
+              <option value="feminino">Feminino</option>
+              <option value="não informado">Prefiro não informar</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Telefone <em class="required-note">(Este campo é obrigatório)</em></span>
+            <input name="telefone" inputmode="tel" autocomplete="tel" placeholder="(43) 99999-9999" maxlength="15" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}" title="Use o formato (DDD) 99999-9999" required>
+          </label>
+
+          <label class="field">
+            <span>WhatsApp</span>
+            <input name="whatsapp" inputmode="tel" placeholder="(43) 99999-9999" maxlength="15" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}" title="Use o formato (DDD) 99999-9999">
+          </label>
+
+          <label class="field field-full">
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" placeholder="seuemail@dominio.com">
+          </label>
+
+          <div class="field field-full">
+            <span>Foto <em class="required-note">(Este campo é obrigatório)</em></span>
+            <label class="file-upload-card" for="candidate-photo">
+              <span class="file-upload-icon">📸</span>
+              <span class="file-upload-text">Selecione ou arraste sua foto aqui</span>
+              <span class="file-upload-subtext">Formatos permitidos: JPG, PNG, GIF. Máx 5MB</span>
+              <input id="candidate-photo" name="foto" type="file" accept="image/*" required style="display: none;">
+              <span class="file-selected-name" id="file-name-preview" style="display: none;"></span>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>CEP</span>
+            <input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="86020-120" maxlength="9">
+          </label>
+
+          <label class="field">
+            <span>Cidade</span>
+            <input name="cidade" autocomplete="address-level2" placeholder="Londrina">
+          </label>
+
+          <label class="field">
+            <span>Estado</span>
+            <input name="estado" maxlength="2" autocomplete="address-level1" placeholder="PR">
+          </label>
+
+          <label class="field">
+            <span>Bairro</span>
+            <input name="bairro" placeholder="Centro">
+          </label>
+
+          <label class="field field-full">
+            <span>Endereço <em class="required-note">(Este campo é obrigatório)</em></span>
+            <input name="endereco" autocomplete="street-address" placeholder="Rua das Flores" required>
+          </label>
+
+          <label class="field">
+            <span>Número</span>
+            <input name="numero" placeholder="123">
+          </label>
+
+          <label class="field">
+            <span>Complemento</span>
+            <input name="complemento" placeholder="Apto, casa, bloco">
+          </label>
+
+          <label class="field field-full">
+            <span>Formação</span>
+            <input name="formacao" placeholder="Ensino superior - Administração">
+          </label>
+
+          <div class="field field-full">
+            <span id="vaga-interesse-label">Vaga de interesse <em class="required-note">(Este campo é obrigatório)</em></span>
+            <input name="vaga_interesse" type="hidden">
+            <div class="checkbox-group" role="group" aria-labelledby="vaga-interesse-label">
+              <label class="checkbox-option">
+                <input type="checkbox" value="Atendente" data-role-option>
+                <span>Atendente</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" value="Op. de caixa" data-role-option>
+                <span>Op. de caixa</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" value="Estoquista" data-role-option>
+                <span>Estoquista</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" value="Auxiliar de loja (jovem aprendiz)" data-role-option>
+                <span>Auxiliar de loja (jovem aprendiz)</span>
+              </label>
+            </div>
+          </div>
+
+          <label class="field">
+            <span>Disponibilidade</span>
+            <input name="disponibilidade" placeholder="Manhã, tarde, noite ou integral">
+          </label>
+
+          <label class="field">
+            <span>Possui experiências? <em class="required-note">(Este campo é obrigatório)</em></span>
+            <select id="possui-experiencias" required>
+              <option value="">Selecione</option>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
+            </select>
+          </label>
+
+          <label class="field field-full experience-field is-hidden" hidden>
+            <span>Experiência 1 <em class="required-note">(Este campo é obrigatório)</em></span>
+            <textarea name="experiencia1" placeholder="Empresa, período e atividades"></textarea>
+          </label>
+
+          <label class="field field-full experience-field is-hidden" hidden>
+            <span>Experiência 2</span>
+            <textarea name="experiencia2" placeholder="Empresa, período e atividades"></textarea>
+          </label>
+
+          <label class="field field-full experience-field is-hidden" hidden>
+            <span>Experiência 3</span>
+            <textarea name="experiencia3" placeholder="Empresa, período e atividades"></textarea>
+          </label>
+
+          <label class="field">
+            <span>Possui CNH?</span>
+            <select name="possui_cnh">
+              <option value="">Selecione</option>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Categoria CNH</span>
+            <input name="categoria_cnh" placeholder="A, B, AB...">
+          </label>
+
+          <label class="field field-full">
+            <span>LinkedIn</span>
+            <input name="linkedin" type="url" placeholder="https://www.linkedin.com/in/seu-perfil">
+          </label>
+
+          <label class="field field-full">
+            <span>Observações</span>
+            <textarea name="observacoes_rh" placeholder="Conte algo importante para nossa equipe de RH"></textarea>
+          </label>
+
+          <div class="public-form-actions field-full">
+            <button class="btn" type="submit" id="submit-candidate">Enviar cadastro</button>
+          </div>
+        </form>
+
+        <iframe class="submit-frame" name="webhook-submit-frame" title="Envio do currículo"></iframe>
+      </section>
+    </main>
+
+    <div class="public-modal-backdrop" id="candidate-success-modal" hidden>
+      <section class="public-modal-shell" role="dialog" aria-modal="true" aria-labelledby="candidate-success-title">
+        <button class="public-modal-close" type="button" data-close-success-modal aria-label="Fechar">x</button>
+        <div class="public-modal-icon" aria-hidden="true">✓</div>
+        <h2 id="candidate-success-title">Cadastro enviado com sucesso!</h2>
+        <p>Nossa equipe de RH analisará suas informações.</p>
+        <button class="btn" type="button" data-close-success-modal>Entendi</button>
+      </section>
+    </div>
+
     <script>
-      window.location.replace("./vagas-elisamix.html");
+      const WEBHOOK_URL = "https://n8n.geniuslead.com.br/webhook/api/sul/candidatos";
+      const VIACEP_URL = "https://viacep.com.br/ws";
+      const form = document.getElementById("candidate-form");
+      const submitButton = document.getElementById("submit-candidate");
+      const submitFrame = document.querySelector('iframe[name="webhook-submit-frame"]');
+      const successModal = document.getElementById("candidate-success-modal");
+      const cepField = form.elements.cep;
+      const roleField = form.elements.vaga_interesse;
+      const roleOptions = Array.from(document.querySelectorAll("[data-role-option]"));
+      const experienceSelect = document.getElementById("possui-experiencias");
+      const experienceGroups = Array.from(document.querySelectorAll(".experience-field"));
+      const experienceFields = [form.elements.experiencia1, form.elements.experiencia2, form.elements.experiencia3].filter(Boolean);
+      const firstExperienceField = form.elements.experiencia1;
+      const phoneFields = [form.elements.telefone, form.elements.whatsapp].filter(Boolean);
+      const addressFields = {
+        cidade: form.elements.cidade,
+        estado: form.elements.estado,
+        bairro: form.elements.bairro,
+        endereco: form.elements.endereco,
+        numero: form.elements.numero,
+      };
+      const NO_EXPERIENCE_TEXT = "não possui experiências anteriores";
+
+      let hasSubmitted = false;
+      let cepRequestToken = 0;
+
+      phoneFields.forEach((field) => {
+        field.addEventListener("input", () => {
+          field.value = formatPhoneValue(field.value);
+        });
+      });
+
+      roleOptions.forEach((option) => option.addEventListener("change", syncSelectedRoles));
+      experienceSelect.addEventListener("change", updateExperienceFields);
+
+      if (cepField) {
+        cepField.addEventListener("input", () => {
+          cepField.value = formatCepValue(cepField.value);
+          const cep = onlyDigits(cepField.value);
+          if (cep.length === 8) {
+            fillAddressFromCep(cep);
+          } else {
+            cepRequestToken += 1;
+          }
+        });
+      }
+
+      syncSelectedRoles();
+      updateExperienceFields();
+
+      // Checkbox visual styling
+      roleOptions.forEach((option) => {
+        const optionLabel = option.closest(".checkbox-option");
+        if (optionLabel) {
+          optionLabel.classList.toggle("is-checked", option.checked);
+          option.addEventListener("change", () => {
+            optionLabel.classList.toggle("is-checked", option.checked);
+          });
+        }
+      });
+
+      // Photo upload selection preview with drag and drop + validation
+      const photoInput = document.getElementById("candidate-photo");
+      const photoPreview = document.getElementById("file-name-preview");
+      const photoText = document.querySelector(".file-upload-text");
+      const fileUploadCard = document.querySelector(".file-upload-card");
+
+      function handleFile(file) {
+        if (!file) {
+          photoPreview.style.display = "none";
+          photoText.textContent = "Selecione ou arraste sua foto aqui";
+          return false;
+        }
+
+        // Validate type
+        if (!file.type.startsWith("image/")) {
+          alert("Formato de arquivo não permitido. Por favor, envie uma imagem (JPG, PNG ou GIF).");
+          photoInput.value = "";
+          photoPreview.style.display = "none";
+          photoText.textContent = "Selecione ou arraste sua foto aqui";
+          return false;
+        }
+
+        // Validate size: max 5MB
+        const maxSizeBytes = 5 * 1024 * 1024;
+        if (file.size > maxSizeBytes) {
+          alert("A imagem é muito grande. O tamanho máximo permitido é de 5MB.");
+          photoInput.value = "";
+          photoPreview.style.display = "none";
+          photoText.textContent = "Selecione ou arraste sua foto aqui";
+          return false;
+        }
+
+        photoPreview.textContent = `Arquivo: ${file.name}`;
+        photoPreview.style.display = "inline-block";
+        photoText.textContent = "Foto carregada!";
+        return true;
+      }
+
+      if (photoInput && photoPreview && photoText) {
+        photoInput.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          handleFile(file);
+        });
+      }
+
+      if (fileUploadCard && photoInput) {
+        // Prevent default drag behaviors
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+          fileUploadCard.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }, false);
+        });
+
+        // Highlight drop zone on drag over
+        ["dragenter", "dragover"].forEach((eventName) => {
+          fileUploadCard.addEventListener(eventName, () => {
+            fileUploadCard.classList.add("is-dragover");
+          }, false);
+        });
+
+        ["dragleave", "dragend", "drop"].forEach((eventName) => {
+          fileUploadCard.addEventListener(eventName, () => {
+            fileUploadCard.classList.remove("is-dragover");
+          }, false);
+        });
+
+        // Handle dropped files
+        fileUploadCard.addEventListener("drop", (e) => {
+          const dt = e.dataTransfer;
+          const files = dt.files;
+          if (files && files.length > 0) {
+            photoInput.files = files;
+            // Manually trigger change event
+            photoInput.dispatchEvent(new Event("change"));
+          }
+        }, false);
+      }
+
+      form.addEventListener("submit", (event) => {
+        syncSelectedRoles();
+        prepareExperienceFieldsForSubmit();
+
+        if (!form.reportValidity()) {
+          event.preventDefault();
+          return;
+        }
+
+        normalizeTextFields(new FormData(form));
+        applyPhoneMasks();
+        if (cepField) cepField.value = formatCepValue(cepField.value);
+        form.elements.status.value = "Novo";
+        form.action = WEBHOOK_URL;
+        hasSubmitted = true;
+        setLoading(true);
+        closeSuccessModal();
+      });
+
+      submitFrame.addEventListener("load", () => {
+        if (!hasSubmitted) return;
+        hasSubmitted = false;
+        setLoading(false);
+        openSuccessModal();
+        form.reset();
+        syncSelectedRoles();
+        updateExperienceFields();
+      });
+
+      successModal.addEventListener("click", (event) => {
+        if (event.target === successModal || event.target.closest("[data-close-success-modal]")) {
+          closeSuccessModal();
+        }
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeSuccessModal();
+      });
+
+      function setLoading(isLoading) {
+        submitButton.disabled = isLoading;
+        submitButton.textContent = isLoading ? "Enviando..." : "Enviar cadastro";
+      }
+
+      function syncSelectedRoles() {
+        const selectedRoles = roleOptions
+          .filter((option) => option.checked)
+          .map((option) => option.value);
+
+        roleField.value = selectedRoles.join(", ");
+        updateRoleValidity(selectedRoles.length > 0);
+      }
+
+      function updateRoleValidity(hasSelectedRole) {
+        if (!roleOptions.length) return;
+        roleOptions[0].setCustomValidity(hasSelectedRole ? "" : "Selecione pelo menos uma vaga de interesse.");
+      }
+
+      function updateExperienceFields() {
+        const hasExperience = experienceSelect.value === "true";
+
+        experienceGroups.forEach((group) => {
+          group.hidden = !hasExperience;
+          group.classList.toggle("is-hidden", !hasExperience);
+          group.style.display = hasExperience ? "" : "none";
+          group.setAttribute("aria-hidden", String(!hasExperience));
+        });
+
+        firstExperienceField.required = hasExperience;
+        if (hasExperience && firstExperienceField.value === NO_EXPERIENCE_TEXT) {
+          firstExperienceField.value = "";
+        }
+      }
+
+      function prepareExperienceFieldsForSubmit() {
+        updateExperienceFields();
+
+        if (experienceSelect.value === "false") {
+          experienceFields.forEach((field) => {
+            field.required = false;
+            field.value = "";
+          });
+
+          firstExperienceField.value = NO_EXPERIENCE_TEXT;
+          return;
+        }
+
+        experienceFields.forEach((field) => {
+          field.value = field.value.trim();
+        });
+      }
+
+      async function fillAddressFromCep(cep) {
+        const token = cepRequestToken + 1;
+        cepRequestToken = token;
+
+        try {
+          const response = await fetch(`${VIACEP_URL}/${cep}/json/`);
+          if (!response.ok) return;
+
+          const data = await response.json();
+          if (token !== cepRequestToken || data?.erro) return;
+
+          setAddressField("endereco", data.logradouro);
+          setAddressField("bairro", data.bairro);
+          setAddressField("cidade", data.localidade);
+          setAddressField("estado", data.uf);
+
+          if (data.cep && cepField) cepField.value = formatCepValue(data.cep);
+          if (data.logradouro && addressFields.numero) addressFields.numero.focus();
+        } catch {
+          // Mantem o preenchimento manual quando a consulta de CEP nao responder.
+        }
+      }
+
+      function setAddressField(name, value) {
+        const field = addressFields[name];
+        if (field && value) field.value = value;
+      }
+
+      function applyPhoneMasks() {
+        phoneFields.forEach((field) => {
+          field.value = formatPhoneValue(field.value);
+        });
+      }
+
+      function formatPhoneValue(value) {
+        const digits = onlyDigits(value).slice(0, 11);
+        if (digits.length <= 2) return digits;
+        if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+        if (digits.length <= 10) {
+          return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+        }
+        return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+      }
+
+      function formatCepValue(value) {
+        const digits = onlyDigits(value).slice(0, 8);
+        if (digits.length <= 5) return digits;
+        return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+      }
+
+      function openSuccessModal() {
+        successModal.hidden = false;
+        successModal.querySelector("[data-close-success-modal]").focus();
+      }
+
+      function closeSuccessModal() {
+        successModal.hidden = true;
+      }
+
+      function normalizeTextFields(formData) {
+        for (const [key, value] of formData.entries()) {
+          if (value instanceof File) continue;
+          const field = form.elements[key];
+          if (field) field.value = String(value || "").trim();
+        }
+      }
+
+      function onlyDigits(value) {
+        return String(value ?? "").replace(/\D/g, "");
+      }
     </script>
-    <p>Redirecionando para <a href="./vagas-elisamix.html">vagas Elisa Mix</a>.</p>
   </body>
 </html>
