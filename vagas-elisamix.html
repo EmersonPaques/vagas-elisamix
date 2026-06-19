@@ -183,6 +183,10 @@
         font-weight: 600;
       }
 
+      .is-hidden {
+        display: none !important;
+      }
+
       .public-form-actions {
         display: flex;
         flex-wrap: wrap;
@@ -421,17 +425,17 @@
             </select>
           </label>
 
-          <label class="field field-full experience-field" hidden>
+          <label class="field field-full experience-field is-hidden" hidden>
             <span>Experiencia 1</span>
             <textarea name="experiencia1" placeholder="Empresa, periodo e atividades"></textarea>
           </label>
 
-          <label class="field field-full experience-field" hidden>
+          <label class="field field-full experience-field is-hidden" hidden>
             <span>Experiencia 2</span>
             <textarea name="experiencia2" placeholder="Empresa, periodo e atividades"></textarea>
           </label>
 
-          <label class="field field-full experience-field" hidden>
+          <label class="field field-full experience-field is-hidden" hidden>
             <span>Experiencia 3</span>
             <textarea name="experiencia3" placeholder="Empresa, periodo e atividades"></textarea>
           </label>
@@ -593,6 +597,9 @@
 
         experienceGroups.forEach((group) => {
           group.hidden = !hasExperience;
+          group.classList.toggle("is-hidden", !hasExperience);
+          group.style.display = hasExperience ? "" : "none";
+          group.setAttribute("aria-hidden", String(!hasExperience));
         });
 
         firstExperienceField.required = hasExperience;
