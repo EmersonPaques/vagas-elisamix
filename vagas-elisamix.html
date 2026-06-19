@@ -434,7 +434,7 @@
 
           <label class="field">
             <span>Possui experiências?</span>
-            <select name="possui_experiencias" required>
+            <select id="possui-experiencias" required>
               <option value="">Selecione</option>
               <option value="true">Sim</option>
               <option value="false">Não</option>
@@ -509,7 +509,7 @@
       const cepField = form.elements.cep;
       const roleField = form.elements.vaga_interesse;
       const roleOptions = Array.from(document.querySelectorAll("[data-role-option]"));
-      const experienceSelect = form.elements.possui_experiencias;
+      const experienceSelect = document.getElementById("possui-experiencias");
       const experienceGroups = Array.from(document.querySelectorAll(".experience-field"));
       const experienceFields = [form.elements.experiencia1, form.elements.experiencia2, form.elements.experiencia3].filter(Boolean);
       const firstExperienceField = form.elements.experiencia1;
