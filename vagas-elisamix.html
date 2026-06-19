@@ -86,6 +86,20 @@
         text-align: center;
       }
 
+      .brand-logo {
+        width: 84px;
+        height: 84px;
+        padding: 5px;
+        background: #ffffff;
+        overflow: hidden;
+      }
+
+      .brand-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
       h1 {
         margin: 0;
         font-size: 24px;
@@ -299,7 +313,9 @@
     <main class="public-form-shell">
       <section class="public-form-panel">
         <div class="public-form-head">
-          <span class="brand">Elisa<br>Mix</span>
+          <span class="brand brand-logo">
+            <img src="./elisamix-logo.png" alt="Elisa Mix">
+          </span>
           <div>
             <h1>Cadastro de currículo</h1>
             <p>Preencha seus dados para participar dos processos seletivos da Elisa Mix.</p>
@@ -369,12 +385,12 @@
           </label>
 
           <label class="field field-full">
-            <span>Endereco</span>
+            <span>Endereço</span>
             <input name="endereco" autocomplete="street-address" placeholder="Rua das Flores" required>
           </label>
 
           <label class="field">
-            <span>Numero</span>
+            <span>Número</span>
             <input name="numero" placeholder="123">
           </label>
 
@@ -384,8 +400,8 @@
           </label>
 
           <label class="field field-full">
-            <span>Formacao</span>
-            <input name="formacao" placeholder="Ensino Superior - Administracao">
+            <span>Formação</span>
+            <input name="formacao" placeholder="Ensino superior - Administração">
           </label>
 
           <div class="field field-full">
@@ -413,11 +429,11 @@
 
           <label class="field">
             <span>Disponibilidade</span>
-            <input name="disponibilidade" placeholder="Manha, tarde, noite ou integral">
+            <input name="disponibilidade" placeholder="Manhã, tarde, noite ou integral">
           </label>
 
           <label class="field">
-            <span>Possui experiencias?</span>
+            <span>Possui experiências?</span>
             <select name="possui_experiencias" required>
               <option value="">Selecione</option>
               <option value="Sim">Sim</option>
@@ -426,18 +442,18 @@
           </label>
 
           <label class="field field-full experience-field is-hidden" hidden>
-            <span>Experiencia 1</span>
-            <textarea name="experiencia1" placeholder="Empresa, periodo e atividades"></textarea>
+            <span>Experiência 1</span>
+            <textarea name="experiencia1" placeholder="Empresa, período e atividades"></textarea>
           </label>
 
           <label class="field field-full experience-field is-hidden" hidden>
-            <span>Experiencia 2</span>
-            <textarea name="experiencia2" placeholder="Empresa, periodo e atividades"></textarea>
+            <span>Experiência 2</span>
+            <textarea name="experiencia2" placeholder="Empresa, período e atividades"></textarea>
           </label>
 
           <label class="field field-full experience-field is-hidden" hidden>
-            <span>Experiencia 3</span>
-            <textarea name="experiencia3" placeholder="Empresa, periodo e atividades"></textarea>
+            <span>Experiência 3</span>
+            <textarea name="experiencia3" placeholder="Empresa, período e atividades"></textarea>
           </label>
 
           <label class="field">
@@ -460,7 +476,7 @@
           </label>
 
           <label class="field field-full">
-            <span>Observacoes</span>
+            <span>Observações</span>
             <textarea name="observacoes_rh" placeholder="Conte algo importante para nossa equipe de RH"></textarea>
           </label>
 
@@ -469,7 +485,7 @@
           </div>
         </form>
 
-        <iframe class="submit-frame" name="webhook-submit-frame" title="Envio do curriculo"></iframe>
+        <iframe class="submit-frame" name="webhook-submit-frame" title="Envio do currículo"></iframe>
       </section>
     </main>
 
@@ -478,7 +494,7 @@
         <button class="public-modal-close" type="button" data-close-success-modal aria-label="Fechar">x</button>
         <div class="public-modal-icon" aria-hidden="true">✓</div>
         <h2 id="candidate-success-title">Cadastro enviado com sucesso!</h2>
-        <p>Nossa equipe de RH analisara suas informacoes.</p>
+        <p>Nossa equipe de RH analisará suas informações.</p>
         <button class="btn" type="button" data-close-success-modal>Entendi</button>
       </section>
     </div>
@@ -505,7 +521,7 @@
         endereco: form.elements.endereco,
         numero: form.elements.numero,
       };
-      const NO_EXPERIENCE_TEXT = "não possui experiencias anteriores";
+      const NO_EXPERIENCE_TEXT = "não possui experiências anteriores";
 
       let hasSubmitted = false;
       let cepRequestToken = 0;
